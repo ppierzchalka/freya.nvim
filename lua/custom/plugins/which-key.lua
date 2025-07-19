@@ -72,6 +72,13 @@ return {
     { "<leader>af", desc = "Copilot Fix diagnostic" },
     { "<leader>al", desc = "Copilot Clear chat" },
 
+    -- Session management
+    { "<leader>s", group = "session" },
+    { "<leader>ss", "<cmd>SessionManager save_current_session<CR>", desc = "Save Session" },
+    { "<leader>sl", "<cmd>SessionManager load_session<CR>", desc = "Load Session" },
+    { "<leader>sd", "<cmd>SessionManager delete_session<CR>", desc = "Delete Session" },
+    { "<leader>sr", "<cmd>SessionManager load_current_dir_session<CR>", desc = "Restore Session" },
+
     -- Format
     { "<leader>cf", function() vim.lsp.buf.format({ async = true }) end, desc = "Format Code" },
   },
