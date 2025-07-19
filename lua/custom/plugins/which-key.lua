@@ -32,12 +32,26 @@ return {
     { "<leader>tb", desc = "Toggle git blame line" },
     { "<leader>tD", desc = "Toggle git show deleted" },
 
+    -- Command Palette
+    { "<leader>p", desc = "Command Palette" },
+    { "<leader>P", desc = "Command History" },
+
     -- Yanky
     { "<leader>y", group = "yank" },
     { "<leader>yp", "<cmd>Telescope yank_history<CR>", desc = "Yank History" },
 
     -- Dashboard
-    { "<leader>d", function() require("dashboard").open() end, desc = "Dashboard" },
+    { "<leader>d", "<cmd>Dashboard<cr>", desc = "Dashboard" },
+
+    -- Buffer management (override kickstart's problematic buffer mapping)
+    { "<leader><leader>", function()
+      local buffers = vim.fn.getbufinfo({buflisted = 1})
+      if #buffers > 1 then
+        require('telescope.builtin').buffers()
+      else
+        vim.notify("No additional buffers to show", vim.log.levels.INFO)
+      end
+    end, desc = "Switch Buffer" },
 
     -- AI/Copilot
     { "<leader>a", group = "ai" },
@@ -62,6 +76,6 @@ return {
     { "<leader>cf", function() vim.lsp.buf.format({ async = true }) end, desc = "Format Code" },
   },
   opts = {
-    -- your config options here if needed
+    preset = "modern",
   },
 }

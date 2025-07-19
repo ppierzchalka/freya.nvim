@@ -1,9 +1,19 @@
+-- ESLint integration via nvim-lint (better than null-ls)
 return {
-    "nvimtools/none-ls.nvim",
-    dependencies = {"williamboman/mason.nvim"},
-    opts = function(_, opts)
-        local nls = require("null-ls")
-        opts.sources = opts.sources or {}
-        vim.list_extend(opts.sources, {nls.builtins.diagnostics.eslint_d, nls.builtins.code_actions.eslint_d})
-    end
+  "mfussenegger/nvim-lint",
+  opts = function(_, opts)
+    opts.linters_by_ft = opts.linters_by_ft or {}
+    
+    -- Add ESLint for JavaScript/TypeScript files
+    vim.tbl_extend("force", opts.linters_by_ft, {
+      javascript = { "eslint_d" },
+      typescript = { "eslint_d" },
+      javascriptreact = { "eslint_d" },
+      typescriptreact = { "eslint_d" },
+      vue = { "eslint_d" },
+      svelte = { "eslint_d" },
+    })
+    
+    return opts
+  end,
 }

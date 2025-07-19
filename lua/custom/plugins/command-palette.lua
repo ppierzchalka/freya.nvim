@@ -1,19 +1,17 @@
--- command palette
+-- Command palette using telescope's built-in commands
 return {
-  "dhruvmanila/telescope-command-palette.nvim",
-  dependencies = { "nvim-telescope/telescope.nvim" },
-  config = function()
-    local telescope = require("telescope")
-    telescope.setup({
-      extensions = {
-        command_palette = {
-          -- You can configure categories or commands here if needed
-        },
-      },
-    })
-    telescope.load_extension("command_palette")
-
-    -- Optional: keymap to open the command palette
-    vim.keymap.set("n", "<leader>p", ":Telescope command_palette<CR>", { desc = "Command Palette" })
+  "nvim-telescope/telescope.nvim",
+  keys = {
+    { "<leader>p", "<cmd>Telescope commands<cr>", desc = "Command Palette" },
+    { "<leader>P", "<cmd>Telescope command_history<cr>", desc = "Command History" },
+  },
+  -- This extends the existing telescope config rather than replacing it
+  opts = function(_, opts)
+    opts = opts or {}
+    opts.defaults = opts.defaults or {}
+    opts.defaults.layout_strategy = opts.defaults.layout_strategy or "horizontal"
+    opts.defaults.layout_config = opts.defaults.layout_config or {}
+    opts.defaults.layout_config.prompt_position = "top"
+    return opts
   end,
 }
